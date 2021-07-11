@@ -26,16 +26,22 @@ class CountdownTimer {
             const currentTime = Date.now();
             const timeDifference = expectedTime - currentTime;
             const leftTime = this.getTimeElements(timeDifference);
-            this.unpdateTimerElements(leftTime);
+            if (timeDifference >= 0) {
+                this.updateTimerElements(leftTime);
+            }
         }, 1000);
     };
 
 
-    stop(){
+    stop() {
+        if (this.isActive === false) {
+            return;
+        }
+
         clearInterval(this.intervalId);
         this.isActive = false;
         const leftTime = this.getTimeElements(0);
-        this.unpdateTimerElements(leftTime);
+        this.updateTimerElements(leftTime);
     };
 
     clear() {
@@ -43,8 +49,6 @@ class CountdownTimer {
             .innerHTML = '';
         clearInterval(this.intervalId);
         this.isActive = false;
-        const leftTime = this.getTimeElements(0);
-        this.unpdateTimerElements(leftTime);
     }
 
     getTimeElements (time) {
@@ -82,7 +86,7 @@ class CountdownTimer {
             </div>`;
     };
 
-    unpdateTimerElements ({ days, hours, mins, secs }) {
+    updateTimerElements ({ days, hours, mins, secs }) {
         document.querySelector('[data-value="days"]').textContent = `${days}`;
         document.querySelector('[data-value="hours"]').textContent = `${hours}`; 
         document.querySelector('[data-value="mins"]').textContent = `${mins}`;
@@ -91,7 +95,7 @@ class CountdownTimer {
 };
 
 const timer = new CountdownTimer({
-    targetDate: new Date('September 01 2021'),
+    targetDate: new Date('Sep 11 2021 11:19'),
     selector: '#timer-1',
 });
 
