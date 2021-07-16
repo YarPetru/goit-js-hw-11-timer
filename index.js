@@ -99,14 +99,23 @@ const timer = new CountdownTimer({
     selector: '#timer-1',
 });
 
-refs.startBtn.addEventListener('click', () => {
-    timer.start();
-});
 
-refs.stopBtn.addEventListener('click', () => {
-    timer.stop();
-});
 
-refs.clearBtn.addEventListener('click', () => {
-    timer.clear();
-});
+
+refs.startBtn.addEventListener('click', timer.start.bind(timer));
+
+refs.stopBtn.addEventListener('click', timer.stop.bind(timer));
+
+refs.clearBtn.addEventListener('click', timer.clear.bind(timer));
+
+// refs.startBtn.addEventListener('click', () => {
+//     timer.start();
+// });
+
+// refs.stopBtn.addEventListener('click', () => {
+//     timer.stop();
+// });
+
+// refs.clearBtn.addEventListener('click', () => {
+//     timer.clear();
+// });
